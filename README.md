@@ -1,128 +1,184 @@
 # HID1KBrute
 
-# 🔍 RFID Card Analyzer
+# RFID Card Analysis Toolkit
 
-**Ever wondered what's hidden in your RFID/HID card's hex data?** This tool cracks the code and reveals the facility codes and card numbers buried in the binary bits.
+A comprehensive Python toolkit for analyzing RFID/HID card data and generating badge patterns. This toolkit consists of two main components: an **RFID Card Analyzer** for discovering facility codes and card number patterns, and a **Badge Designer** for generating hex data from known patterns.
 
-## 🎯 What Does It Do?
+## 🔧 Features
 
-Got a stack of RFID cards with their hex dumps and card numbers? This analyzer:
-- **Reverse engineers** facility codes from raw hex data
-- **Finds patterns** across multiple cards to validate results
-- **Matches against** known HID card formats for extra confidence
-- **Shows you exactly** where the FC and CN bits are located
+### RFID Card Analyzer (`main.py`)
+- **Pattern Discovery**: Automatically discovers facility codes (FC) and card number (CN) patterns from hex data
+- **Multiple Card Analysis**: Analyze multiple cards simultaneously to find consistent patterns
+- **Real-world Format Detection**: Matches against known HID card formats with confidence scoring
+- **Interactive Mode**: Browse and explore discovered patterns interactively
+- **Flexible Input**: Support for command-line arguments or JSON file input
+- **Comprehensive Output**: Detailed analysis with bit positions, window offsets, and pattern confidence
 
-Perfect for penetration testers, security researchers, or anyone curious about how their access cards work under the hood.
+### Badge Designer (`badge_designer.py`)
+- **Pattern-based Generation**: Generate hex data using predefined or custom patterns
+- **HID Format Support**: Built-in support for common HID formats (26-bit, 34-bit, 35-bit, etc.)
+- **Batch Generation**: Generate multiple badges with sequential card numbers
+- **Custom Patterns**: Create and test custom bit patterns
+- **Hex Padding**: Configurable hex output padding for different reader requirements
+- **Interactive Design**: Step-by-step badge creation with validation
+
+## 📦 Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/rfid-toolkit.git
+cd rfid-toolkit
+```
+
+2. Ensure you have Python 3.6+ installed:
+```bash
+python3 --version
+```
+
+3. No additional dependencies required - uses only Python standard library!
 
 ## 🚀 Quick Start
 
+### Analyzing Cards
+
+**Single Card Analysis:**
 ```bash
-# Single card analysis
-python main.py -c 27bafc0864 32443
-
-# Multiple cards (more reliable)
-python main.py -c 27bafc0864 32443 -c 1a2b3c4d5e 12345
-
-# If you already know the facility code
-python main.py --known-fc 2436 -c 27bafc0864 32443
-
-# Load from JSON file
-python main.py --file cards.json
+python3 main.py -c 27bafc0864 32443
 ```
 
-## 📊 Example Output
-
-```
-🔍 Analyzing 2 cards...
-
-📊 Cards:
-  Card_001: 27BAFC0864 (CN: 32443)
-  Card_002: 1A2B3C4D5E (CN: 12345)
-
-✅ Found 1 FC candidate(s)
-
-📊 FC 2436 - All Permutations
-═══════════════════════════════════════════════════════════
-📊 Summary: 2 matches, 2 cards, 1 patterns
-🎯 Matched Format: HID H10301 (26-bit) (+50 confidence)
-
-🔍 Pattern #1:
-  📐 Window: 26 bits at offset 8
-  🎯 FC: 8 bits at pos 1
-  🎯 CN: 16 bits at pos 9
-  🔄 Reversed: False
-  📱 Cards: 2
-    └─ Card_001: FC=10011000, CN=0111111010101011
-    └─ Card_002: FC=10011000, CN=0011000000111001
-
-🎉 Most likely FC: 2436
-```
-
-## 💾 Input Formats
-
-### Command Line
+**Multiple Cards:**
 ```bash
-# Format: HEX_DATA KNOWN_CN [OPTIONAL_NAME]
-python main.py -c 27bafc0864 32443 "Bob's Card"
+python3 main.py -c 27bafc0864 32443 -c 1a2b3c4d5e 12345
 ```
 
-### JSON File
+**With Known Facility Code:**
+```bash
+python3 main.py --known-fc 2436 -c 27bafc0864 32443
+```
+
+### Generating Badges
+
+**Interactive Mode:**
+```bash
+python3 badge_designer.py -i
+```
+
+**Generate Single Badge:**
+```bash
+python3 badge_designer.py --pattern hid_26bit --fc 123 --cn 45678
+```
+
+**Generate Badge Range:**
+```bash
+python3 badge_designer.py --pattern hid_26bit --fc 123 --cn-range 1000 1010
+```
+
+## 📋 Usage Examples
+
+### 1. Discover Facility Code from Unknown Cards
+
+```bash
+# Analyze multiple cards to find the facility code
+python3 main.py \
+  -c 27bafc0864 32443 "Alice's Card" \
+  -c 1a2b3c4d5e 12345 "Bob's Card" \
+  -c 3f4e5d6c7b 67890 "Charlie's Card"
+```
+
+### 2. Load Cards from JSON File
+
+Create a `cards.json` file:
 ```json
 [
   {
     "hex_data": "27bafc0864",
     "known_cn": 32443,
-    "name": "Bob's Card"
+    "name": "Alice's Card"
   },
   {
     "hex_data": "1a2b3c4d5e",
     "known_cn": 12345,
-    "name": "Alice's Card"
+    "name": "Bob's Card"
   }
 ]
 ```
 
-## 🔧 Advanced Options
-
+Then analyze:
 ```bash
-# Custom bit window sizes
-python main.py -c 27bafc0864 32443 --min-bits 24 --max-bits 37
-
-# Show more candidates
-python main.py -c 27bafc0864 32443 --max-candidates 10
-
-# Skip interactive mode (show all details)
-python main.py -c 27bafc0864 32443 --no-interactive
-
-# Disable colors (for piping output)
-python main.py -c 27bafc0864 32443 --no-color
+python3 main.py --file cards.json
 ```
 
-## 🧠 How It Works
+### 3. Generate Badges for New Employees
 
-The analyzer uses a brute-force approach with intelligence:
+```bash
+# Generate a range of badges for new employees
+python3 badge_designer.py \
+  --pattern hid_26bit \
+  --fc 2436 \
+  --cn-range 50000 50010 \
+  --hex-padding 10
+```
 
-1. **Bit Window Scanning**: Tries different bit window sizes (default 32-35 bits)
-2. **Pattern Testing**: Tests every possible FC/CN position combination
-3. **Multi-Card Validation**: Confirms patterns work across ALL provided cards
-4. **Format Matching**: Compares against known HID card formats for confidence boost
-5. **Scoring**: Ranks candidates by consistency and real-world likelihood
+### 4. Interactive Pattern Discovery
 
-## 🎨 Configuration
+```bash
+# Start interactive mode for detailed analysis
+python3 main.py -c 27bafc0864 32443 --no-interactive
+```
 
-### HID Patterns (Optional)
-Create `hid_patterns.json` in the same directory for format matching:
+### 5. Custom Pattern Creation
+
+```bash
+# Create badges with custom patterns
+python3 badge_designer.py -i
+# Then select option 2 for custom pattern creation
+```
+
+## 🎛️ Command Line Options
+
+### RFID Analyzer (`main.py`)
+
+| Option | Description |
+|--------|-------------|
+| `-c, --card` | Add card: `HEX_DATA KNOWN_CN [NAME]` |
+| `-f, --file` | Load cards from JSON file |
+| `--known-fc` | Search for specific facility code |
+| `--min-bits` | Minimum bit window (default: 32) |
+| `--max-bits` | Maximum bit window (default: 35) |
+| `--max-candidates` | Maximum candidates to show (default: 5) |
+| `--no-interactive` | Show all details immediately |
+| `--no-color` | Disable colored output |
+
+### Badge Designer (`badge_designer.py`)
+
+| Option | Description |
+|--------|-------------|
+| `-i, --interactive` | Interactive mode |
+| `--fc` | Facility code |
+| `--cn` | Card number |
+| `--cn-range` | Card number range: `START END` |
+| `--pattern` | Pattern name |
+| `--list-patterns` | List available patterns |
+| `--hex-padding` | Hex digits to pad to |
+| `--show-binary` | Show binary representation |
+| `--no-color` | Disable colored output |
+
+## 📊 Pattern Configuration
+
+### HID Patterns File (`hid_patterns.json`)
+
+The toolkit supports loading HID patterns from a JSON configuration file:
 
 ```json
 {
   "formats": [
     {
-      "name": "HID H10301 (26-bit)",
+      "name": "26-bit Standard",
       "total_bits": 26,
+      "fc_position": 2,
       "fc_bits": 8,
-      "fc_position": 1,
+      "cn_position": 10,
       "cn_bits": 16,
-      "cn_position": 9,
       "confidence_boost": 50
     }
   ],
@@ -133,49 +189,113 @@ Create `hid_patterns.json` in the same directory for format matching:
 }
 ```
 
-## 📝 Pro Tips
+### Built-in Patterns
 
-### For Best Results:
-- **Use multiple cards** from the same facility - single cards give lots of false positives
-- **Know your card numbers** - without them, the tool can't work its magic
-- **Try different bit windows** if standard ranges don't work
-- **Check the pattern details** - sometimes multiple valid interpretations exist
+The Badge Designer includes these built-in patterns:
 
-### Common Gotchas:
-- Some cards use **reversed bit order** - the tool handles this automatically
-- **Endianness matters** - hex might need byte-swapping depending on your reader
-- **Padding bits** can shift everything - experiment with different offsets
+- **HID 26-bit Standard**: FC=8bits, CN=16bits
+- **HID 34-bit iCLASS**: FC=10bits, CN=20bits  
+- **HID 35-bit Corporate**: FC=12bits, CN=20bits
 
-## 🔬 Understanding the Output
+## 🔍 Understanding the Output
 
-### Confidence Levels:
-- **HIGH**: Pattern confirmed across multiple cards
-- **KNOWN**: Matches a documented HID format
-- **SINGLE**: Only one card available (less reliable)
+### Analyzer Output
 
-### Pattern Details:
-- **Window**: The bit range being analyzed
-- **FC/CN positions**: Where facility code and card number bits are located
-- **Reversed**: Whether bits are read in reverse order
+When analyzing cards, you'll see:
 
-## 🛠️ Requirements
+```
+📊 FC 2436 - All Permutations
+============================================================
+📊 Summary: 3 matches, 3 cards, 1 patterns
+🎯 Matched Format: 26-bit Standard (+50 confidence)
 
-- Python 3.6+
-- No external dependencies (uses only stdlib)
-- Terminal with color support (optional)
+🔍 Pattern #1:
+  📐 Window: 26 bits at offset 5
+  🎯 FC: 8 bits at pos 1
+  🎯 CN: 16 bits at pos 9
+  🔄 Reversed: False
+  📱 Cards: 3
+    └─ Alice's Card: FC=10011000, CN=0111111010101011
+    └─ Bob's Card: FC=10011000, CN=0011000000111001
+    └─ Charlie's Card: FC=10011000, CN=1010010001101010
+```
+
+### Badge Designer Output
+
+When generating badges:
+
+```
+✅ Generated badge:
+    └─ FC=123, CN=45678, HEX=06F2372E0
+       Binary: FC=01111011, CN=1011001001001110
+```
+
+## 🎨 Interactive Mode
+
+Both tools offer interactive modes for easier use:
+
+- **Analyzer Interactive**: Browse multiple FC candidates, view detailed patterns
+- **Designer Interactive**: Step-by-step badge creation with validation
+
+## 🔧 Advanced Features
+
+### Hex Padding
+
+Control output format with padding:
+```bash
+python3 badge_designer.py --hex-padding 12 --pattern hid_26bit --fc 123 --cn 456
+```
+
+### Custom Bit Windows
+
+Analyze specific bit ranges:
+```bash
+python3 main.py --min-bits 24 --max-bits 40 -c 27bafc0864 32443
+```
+
+### Pattern Validation
+
+The toolkit validates:
+- Value ranges against bit lengths
+- Pattern consistency across multiple cards
+- Real-world format matching
+
+## 🛠️ Troubleshooting
+
+### Common Issues
+
+1. **No patterns found**: Try expanding bit window range with `--min-bits` and `--max-bits`
+2. **Multiple candidates**: Use `--known-fc` to filter results
+3. **Hex padding issues**: Ensure padding value accommodates your data length
+
+### Debug Tips
+
+- Use `--show-binary` to see bit-level representations
+- Try `--no-interactive` for full output
+- Check that card numbers are correct in input data
+
+## 📈 Use Cases
+
+- **Security Research**: Analyze badge systems and understand encoding
+- **Badge Administration**: Generate new badges for existing systems
+- **System Migration**: Understand old badge formats for new system setup
+- **Penetration Testing**: Generate test badges for security assessments
+- **Badge Cloning**: Understand card structure for duplication
 
 ## 🤝 Contributing
 
-Found a bug? Have a cool feature idea? PRs welcome! This tool grew out of real pentesting needs, so practical improvements are always appreciated.
+Contributions are welcome! Please feel free to submit issues, feature requests, or pull requests.
 
-## 📄 License
+## 📜 License
 
-MIT License - hack away! 
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-## 🔗 Related Tools
+## ⚠️ Disclaimer
 
-This analyzer finds the patterns - stay tuned for the companion **badge_creator.py** that lets you generate new hex data with custom FC/CN values using the discovered patterns.
+This toolkit is intended for educational, research, and legitimate security testing purposes only. Users are responsible for ensuring compliance with all applicable laws and regulations. The authors assume no responsibility for misuse of this software.
 
----
+## 🙏 Acknowledgments
 
-*Built with ❤️ for the security research community*
+- HID Global for their comprehensive card format documentation
+- The security research community for RFID/HID analysis techniques
+- Contributors and testers who helped improve this toolkit
