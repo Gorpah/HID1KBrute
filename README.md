@@ -4,7 +4,7 @@
 
 A comprehensive Python toolkit for analyzing RFID/HID card data and generating badge patterns. This toolkit consists of two main components: an **RFID Card Analyzer** for discovering facility codes and card number patterns, and a **Badge Designer** for generating hex data from known patterns.
 
-## ð��§ Features
+## Features
 
 ### RFID Card Analyzer (`py1kbrute`)
 - **Pattern Discovery**: Automatically discovers facility codes (FC) and card number (CN) patterns from hex data
@@ -22,7 +22,7 @@ A comprehensive Python toolkit for analyzing RFID/HID card data and generating b
 - **Hex Padding**: Configurable hex output padding for different reader requirements
 - **Interactive Design**: Step-by-step badge creation with validation
 
-## ð��¦ Installation
+## Installation
 
 1. Clone the repository:
 ```bash
@@ -36,7 +36,7 @@ python3 --version
 
 3. No additional dependencies required - uses only Python standard library!
 
-## ð��� Quick Start
+## Quick Start
 
 ### Analyzing Cards
 
@@ -72,7 +72,7 @@ py1kencoder --pattern hid_26bit --fc 123 --cn 45678
 py1kencoder --pattern hid_26bit --fc 123 --cn-range 1000 1010
 ```
 
-## ð��� Usage Examples
+## Usage Examples
 
 ### 1. Discover Facility Code from Unknown Cards
 
@@ -133,7 +133,7 @@ py1kencoder -i
 # Then select option 2 for custom pattern creation
 ```
 
-## ð���ï¸� Command Line Options
+## Command Line Options
 
 ### RFID Analyzer (`py1kbrute.py`)
 
@@ -162,7 +162,6 @@ py1kencoder -i
 | `--show-binary` | Show binary representation |
 | `--no-color` | Disable colored output |
 
-
 ### Built-in Patterns
 
 The Badge Designer includes these built-in patterns:
@@ -171,27 +170,27 @@ The Badge Designer includes these built-in patterns:
 - **HID 34-bit iCLASS**: FC=10bits, CN=20bits  
 - **HID 35-bit Corporate**: FC=12bits, CN=20bits
 
-## ð��� Understanding the Output
+## Understanding the Output
 
 ### Analyzer Output
 
 When analyzing cards, you'll see:
 
 ```
-ð��� FC 2436 - All Permutations
+FC 2436 - All Permutations
 ============================================================
-ð��� Summary: 3 matches, 3 cards, 1 patterns
-ð��¯ Matched Format: 26-bit Standard (+50 confidence)
+Summary: 3 matches, 3 cards, 1 patterns
+Matched Format: 26-bit Standard (+50 confidence)
 
-ð��� Pattern #1:
-  ð��� Window: 26 bits at offset 5
-  ð��¯ FC: 8 bits at pos 1
-  ð��¯ CN: 16 bits at pos 9
-  ð��� Reversed: False
-  ð��± Cards: 3
-    â��â�� Alice's Card: FC=10011000, CN=0111111010101011
-    â��â�� Bob's Card: FC=10011000, CN=0011000000111001
-    â��â�� Charlie's Card: FC=10011000, CN=1010010001101010
+Pattern #1:
+  Window: 26 bits at offset 5
+  FC: 8 bits at pos 1
+  CN: 16 bits at pos 9
+  Reversed: False
+  Cards: 3
+    Alice's Card: FC=10011000, CN=0111111010101011
+    Bob's Card: FC=10011000, CN=0011000000111001
+    Charlie's Card: FC=10011000, CN=1010010001101010
 ```
 
 ### Badge Designer Output
@@ -199,11 +198,10 @@ When analyzing cards, you'll see:
 When generating badges:
 
 ```
-â�� Generated badge:
-    â��â�� FC=123, CN=45678, HEX=06F2372E0
+Generated badge:
+    FC=123, CN=45678, HEX=06F2372E0
        Binary: FC=01111011, CN=1011001001001110
 ```
-
 
 ### Common Issues
 
@@ -217,7 +215,7 @@ When generating badges:
 - Try `--no-interactive` for full output
 - Check that card numbers are correct in input data
 
-## ð��� Use Cases
+## Use Cases
 
 - **Security Research**: Analyze badge systems and understand encoding
 - **Badge Administration**: Generate new badges for existing systems
@@ -225,23 +223,22 @@ When generating badges:
 - **Penetration Testing**: Generate test badges for security assessments
 - **Badge Cloning**: Understand card structure for duplication
 
-## ð�¤� Contributing
+## Contributing
 
 Contributions are welcome! Please feel free to submit issues, feature requests, or pull requests.
 
-## ð��� License
+## License
 
 The MIT License (MIT)
 
-Copyright ©  CmdPirx
+Copyright © CmdPirx
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-
-## â� ï¸� Disclaimer
+## Disclaimer
 
 This toolkit is intended for educational, research, and legitimate security testing purposes only. Users are responsible for ensuring compliance with all applicable laws and regulations. The authors assume no responsibility for misuse of this software.
