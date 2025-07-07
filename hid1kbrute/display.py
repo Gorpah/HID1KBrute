@@ -7,7 +7,7 @@ import sys
 from collections import defaultdict
 from typing import List
 
-from models import CardData, FCCandidate
+from .models import CardData, FCCandidate
 
 
 class Colors:
