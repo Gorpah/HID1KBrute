@@ -1,0 +1,166 @@
+{
+  "formats": [
+    {
+      "name": "HID Prox (H10301)",
+      "description": "Standard 26-bit Wiegand",
+      "total_bits": 26,
+      "fc_bits": 8,
+      "cn_bits": 16,
+      "fc_position": 1,
+      "cn_position": 9,
+      "parity_bits": 2,
+      "common": true,
+      "confidence_boost": 50
+    },
+    {
+      "name": "HID Corporate 1000 (H10302)",
+      "description": "35-bit Corporate format",
+      "total_bits": 35,
+      "fc_bits": 12,
+      "cn_bits": 20,
+      "fc_position": 2,
+      "cn_position": 14,
+      "parity_bits": 3,
+      "common": true,
+      "confidence_boost": 40
+    },
+    {
+      "name": "HID PIV (H10304)",
+      "description": "48-bit PIV format",
+      "total_bits": 48,
+      "fc_bits": 14,
+      "cn_bits": 32,
+      "fc_position": 1,
+      "cn_position": 15,
+      "parity_bits": 1,
+      "common": false,
+      "confidence_boost": 30
+    },
+    {
+      "name": "HID ProxCard II (H10320)",
+      "description": "32-bit format with site code",
+      "total_bits": 32,
+      "fc_bits": 8,
+      "cn_bits": 16,
+      "fc_position": 4,
+      "cn_position": 12,
+      "parity_bits": 8,
+      "common": false,
+      "confidence_boost": 25
+    },
+    {
+      "name": "HID iCLASS (H10327)",
+      "description": "34-bit iCLASS format",
+      "total_bits": 34,
+      "fc_bits": 10,
+      "cn_bits": 20,
+      "fc_position": 2,
+      "cn_position": 12,
+      "parity_bits": 2,
+      "common": true,
+      "confidence_boost": 45
+    },
+    {
+      "name": "HID Standard (H10306)",
+      "description": "33-bit standard format",
+      "total_bits": 33,
+      "fc_bits": 8,
+      "cn_bits": 24,
+      "fc_position": 1,
+      "cn_position": 9,
+      "parity_bits": 0,
+      "common": false,
+      "confidence_boost": 20
+    },
+    {
+      "name": "HID Corporate 2000 (H10303)",
+      "description": "36-bit Corporate format",
+      "total_bits": 36,
+      "fc_bits": 13,
+      "cn_bits": 21,
+      "fc_position": 1,
+      "cn_position": 14,
+      "parity_bits": 2,
+      "common": false,
+      "confidence_boost": 35
+    },
+    {
+      "name": "HID ProxCard (H10325)",
+      "description": "30-bit format",
+      "total_bits": 30,
+      "fc_bits": 6,
+      "cn_bits": 22,
+      "fc_position": 1,
+      "cn_position": 7,
+      "parity_bits": 2,
+      "common": false,
+      "confidence_boost": 15
+    },
+    {
+      "name": "HID MiniProx (H10321)",
+      "description": "31-bit format",
+      "total_bits": 31,
+      "fc_bits": 7,
+      "cn_bits": 22,
+      "fc_position": 1,
+      "cn_position": 8,
+      "parity_bits": 2,
+      "common": false,
+      "confidence_boost": 20
+    },
+    {
+      "name": "HID FlexCard (H10324)",
+      "description": "37-bit flexible format",
+      "total_bits": 37,
+      "fc_bits": 16,
+      "cn_bits": 19,
+      "fc_position": 1,
+      "cn_position": 17,
+      "parity_bits": 2,
+      "common": false,
+      "confidence_boost": 25
+    },
+    {
+  "name": "HID Elite (H10350)",
+  "description": "64-bit secure format",
+  "total_bits": 64,
+  "fc_bits": 16,
+  "cn_bits": 40,
+  "fc_position": 1,
+  "cn_position": 17,
+  "parity_bits": 4,
+  "common": false,
+  "confidence_boost": 10
+},
+{
+  "name": "Indala FlexISO",
+  "description": "26-bit Indala format (similar to H10301)",
+  "total_bits": 26,
+  "fc_bits": 8,
+  "cn_bits": 16,
+  "fc_position": 1,
+  "cn_position": 9,
+  "parity_bits": 2,
+  "common": false,
+  "confidence_boost": 18
+},
+{
+  "name": "Casi-Rusco",
+  "description": "40-bit proprietary format",
+  "total_bits": 40,
+  "fc_bits": 16,
+  "cn_bits": 20,
+  "fc_position": 1,
+  "cn_position": 17,
+  "parity_bits": 4,
+  "common": false,
+  "confidence_boost": 10
+}
+
+  ],
+  "tolerance": {
+    "bit_length": 1,
+    "position": 1,
+    "description": "Allowed deviation from documented format"
+  }
+}

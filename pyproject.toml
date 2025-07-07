@@ -1,0 +1,22 @@
+[project]
+name = "hid1kbrute"
+version = "0.1.0"
+description = "A tool for analyzing and brute-forcing HID 1K cards"
+readme = "README.md"
+authors = [{ name = "T.I. (aka cmdpirx)", email = "cmdpirx@protonmail.com" }]
+license = "MIT"
+dependencies = []
+
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project.scripts]
+py1kbrute = "hid1kbrute.py1kbrute:main"
+py1kencoder = "hid1kbrute.py1kencoder:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["hid1kbrute"]
+exclude = ["venv_test"]
+
