@@ -113,7 +113,7 @@ py1kbrute --file cards.json
 # Generate a range of badges for new employees
 py1kencoder\
   --pattern hid_26bit \
-  --fc 2436 \
+  --fc 1234 \
   --cn-range 50000 50010 \
   --hex-padding 10
 ```
