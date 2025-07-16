@@ -52,7 +52,7 @@ py1kbrute -c 27bafc0864 32443 -c 1a2b3c4d5e 12345
 
 **With Known Facility Code:**
 ```bash
-py1kbrute --known-fc 2436 -c 27bafc0864 32443
+py1kbrute --known-fc 1234 -c 27bafc0864 32443
 ```
 
 ### Generating Badges
@@ -177,7 +177,7 @@ The Badge Designer includes these built-in patterns:
 When analyzing cards, you'll see:
 
 ```
-FC 2436 - All Permutations
+FC 1234 - All Permutations
 ============================================================
 Summary: 3 matches, 3 cards, 1 patterns
 Matched Format: 26-bit Standard (+50 confidence)
@@ -188,9 +188,9 @@ Pattern #1:
   CN: 16 bits at pos 9
   Reversed: False
   Cards: 3
-    Alice's Card: FC=10011000, CN=0111111010101011
-    Bob's Card: FC=10011000, CN=0011000000111001
-    Charlie's Card: FC=10011000, CN=1010010001101010
+    Alice's Card: FC=10011001, CN=0111111010101011
+    Bob's Card: FC=10011001, CN=0011000000111001
+    Charlie's Card: FC=10011001, CN=1010010001101010
 ```
 
 ### Badge Designer Output
